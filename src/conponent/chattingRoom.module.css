@@ -1,0 +1,77 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.sendMessage {
+    width: 40%;
+    height: 40px;
+    background-color: beige;
+    border-radius: 10px;
+    line-height: 40px;
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.recivMessage {
+    width: 40%;
+    height: 40px;
+    background-color: rgb(119, 192, 176);
+    border-radius: 10px;
+    line-height: 40px;
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.sendContainer {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.recivContainer {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.sendDttm {
+    font-size: 0.8rem;
+    margin-right: 5px;
+    color: #aaaaaa;
+    height: 40px;
+    line-height: 65px;
+}
+
+.recivDttm {
+    font-size: 0.8rem;
+    margin-left: 5px;
+    color: #aaaaaa;
+    height: 40px;
+    line-height: 65px;
+}
+
+.hide {
+    display: none;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 15px;
+}
+
+.sendUser {
+    text-align: right;
+    margin-top: 6px;
+    margin-bottom: 3px;
+}
+
+.recivUser {
+    text-align: left;
+    margin-top: 6px;
+    margin-bottom: 3px;
+}
