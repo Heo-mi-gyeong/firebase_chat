@@ -1,11 +1,35 @@
-import React, { useRef } from 'react'
+ import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { useRecoilState } from 'recoil';
+import { userData } from '../recoil/recoil';
 import styles from './loginPage.module.css'
 
-const LoginPage = ({login}) => {
+
+const LoginPage = () => {
 
   const id = useRef();
   const pw = useRef();
+
+  const [userInfo, setUserInfo] = useRecoilState(userData);
+
+  const login = (e) => {
+    if(!id.current.value) {
+      alert("아이디를 입력하세요");
+      return;
+    }else if (!pw.current.value) {
+      alert("비밀번호를 입력하세요");
+      return;
+    }
+
+    const user = {
+      id : id.current.value,
+      pw : pw.current.value
+    }
+
+    setUserInfo(user);
+    localStorage.setItem('user',JSON.stringify(user));
+    
+  }
 
   return (
     <div className={styles.container}>
@@ -14,7 +38,7 @@ const LoginPage = ({login}) => {
         <input type={'text'} placeholder='아이디' ref={id}/>
         <p className={styles.label}>비밀번호</p>
         <input type={'password'} placeholder='비밀번호' ref={pw}/>
-        <Link className={styles.loginBtn} onClick={() => {login(id.current.value,pw.current.value)}} to="/chatList">로그인</Link>
+        <Link className={styles.loginBtn} onClick={login} to="/chatList">로그인</Link>
     </div>
   )
 }

@@ -4,11 +4,15 @@ import { useEffect, useState } from 'react';
 import styles from './chattingRoom.module.css';
 import ChatList from './ChatList';
 import Button from './Button';
+import { useRecoilValue } from 'recoil';
+import { userData } from '../recoil/recoil';
 
 function ChattingRoom({id}) {
 
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
+
+  const userInfo = useRecoilValue(userData);
 
   useEffect(() => {
     fireStore.collection('chattingRoom')
@@ -21,7 +25,7 @@ function ChattingRoom({id}) {
 
   const [input, setInput] = useState('');
  
-  const sendMessage = (e) => {
+  const sendMessage = () => {
 
     if(!input) {
       return;
@@ -39,11 +43,11 @@ function ChattingRoom({id}) {
 
     fireStore.collection('chattingRoom').add({
       text: input,
-      user: id,
+      user: userInfo.id,
       createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
     })
 
-    setMessages([...messages, { user: 'me', text: input, createDttm: time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds}]);
+    setMessages([...messages, { user: userInfo.id, text: input, createDttm: time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds}]);
 
     setInput('');
   }
@@ -57,7 +61,7 @@ function ChattingRoom({id}) {
         <p>채팅</p>
       </div>
       <div className={styles.container}>
-        <ChatList messages={messages} id={id}/>
+        <ChatList messages={messages} id={userInfo.id}/>
       </div>
       <div className={styles.row}>
         <input placeholder='메세지를 입력하세요.' value={input} onChange={e => setInput(e.target.value)} onKeyUp={e => e.key === 'Enter'?sendMessage():''}></input>
