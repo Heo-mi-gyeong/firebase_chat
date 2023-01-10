@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Route, useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { fireStore } from '../Firebase';
 import { chattingUser, userData } from '../recoil/recoil';
 import styles from './chattingRoomList.module.css';
 import { back } from './functions';
+import Nav from './Nav';
 
 const ChattingRoomList = () => {
 
@@ -27,9 +28,7 @@ useEffect(() => {
             data.id.includes('#'+userInfo?.id+'#')
         );
         const roomList = result.map((item) => {
-            let id = item.id.replaceAll('#'+userInfo?.id+'#','');
-            id = id.replaceAll('#','');
-            return id;
+            return item.id.replaceAll('#'+userInfo?.id+'#','');
         });
         setList(roomList);
         // setList( d.docs.map(doc => { id : doc.id.filter(id => id.indexOf(userInfo.id) != -1) }) )
@@ -55,6 +54,7 @@ const goChat = (target) => {
                 )
             })
         }
+        <Nav/>
     </div>
   )
 }

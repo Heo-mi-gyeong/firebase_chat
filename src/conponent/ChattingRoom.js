@@ -23,7 +23,7 @@ function ChattingRoom() {
   }, [userInfo]); 
 
   useEffect(() => {
-    fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'#/messages')
+    fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'/messages')
       .orderBy('createDttm', 'asc')
       .onSnapshot(d => {
         setMessages(d.docs.map(doc => ({ id: doc.id, message: doc.data() })))
@@ -49,7 +49,13 @@ function ChattingRoom() {
       seconds: today.getSeconds(), 
     };
 
-    fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'#/messages').add({
+    fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'/messages').add({
+      text: input,
+      user: userInfo.id,
+      createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
+    })
+
+    fireStore.collection('chattingRoomList/#'+chatUser+'#'+ userInfo.id +'/messages').add({
       text: input,
       user: userInfo.id,
       createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
