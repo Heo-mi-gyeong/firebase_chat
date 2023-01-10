@@ -5,17 +5,25 @@ import styles from './chattingRoom.module.css';
 import ChatList from './ChatList';
 import Button from './Button';
 import { useRecoilValue } from 'recoil';
-import { userData } from '../recoil/recoil';
+import { chattingUser, userData } from '../recoil/recoil';
+import { back } from './functions';
 
-function ChattingRoom({id}) {
+function ChattingRoom() {
 
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
 
   const userInfo = useRecoilValue(userData);
+  const chatUser = useRecoilValue(chattingUser);
+
+   useEffect(() => {
+    if(!userInfo?.id){
+      back(navigate);
+    }
+  }, [userInfo]); 
 
   useEffect(() => {
-    fireStore.collection('chattingRoom')
+    fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'#/messages')
       .orderBy('createDttm', 'asc')
       .onSnapshot(d => {
         setMessages(d.docs.map(doc => ({ id: doc.id, message: doc.data() })))
@@ -41,7 +49,7 @@ function ChattingRoom({id}) {
       seconds: today.getSeconds(), 
     };
 
-    fireStore.collection('chattingRoom').add({
+    fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'#/messages').add({
       text: input,
       user: userInfo.id,
       createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
@@ -56,12 +64,12 @@ function ChattingRoom({id}) {
     <div className={styles.box}>
       <div className={styles.title}>
         <div className={styles.back}>
-          <img src='img/left.png' onClick={() => {navigate(-1)}}></img>
+          <img src='img/left.png' onClick={() => back(navigate)}></img>
         </div>
         <p>채팅</p>
       </div>
       <div className={styles.container}>
-        <ChatList messages={messages} id={userInfo.id}/>
+        <ChatList messages={messages} id={userInfo?.id}/>
       </div>
       <div className={styles.row}>
         <input placeholder='메세지를 입력하세요.' value={input} onChange={e => setInput(e.target.value)} onKeyUp={e => e.key === 'Enter'?sendMessage():''}></input>
