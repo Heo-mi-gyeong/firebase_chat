@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    height: 100vh;
     font-weight: bold;
 }
 
@@ -18,20 +18,34 @@
     margin-bottom: 10px;
 }
 
-.loginBtn {
-    width:70%;
-    margin-top: 20px;
-    border: none;
-    background-color: rgb(53, 180, 159);
-    color: white;
-    height: 40px;
-    line-height: 40px;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-}
-
 .loginBtn:active {
     background-color: rgb(173, 233, 223);
     color: black;
 }
+
+.joinBtn:active {
+    background-color: rgb(173, 233, 223);
+    color: black;
+}
+
+.btnArea {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.input {
+    width: 40%;
+    min-width: 250px;
+    max-width: 500px;
+    padding: 0px 20px;
+    border-radius: 20px;
+    border: 1px solid #aaaaaa;
+    height : 35px;
+  }
+  
+  .input:active, .input:focus {
+    border: 1px solid #54c2b0;
+    outline-color: #54c2b0;
+  }

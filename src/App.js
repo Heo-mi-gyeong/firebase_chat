@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import './font.css';
 import LoginPage from './conponent/LoginPage';
 import ChattingRoom from './conponent/ChattingRoom';
 import { RecoilRoot } from 'recoil';

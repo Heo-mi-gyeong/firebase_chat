@@ -78,8 +78,8 @@ function ChattingRoom() {
         <ChatList messages={messages} id={userInfo?.id}/>
       </div>
       <div className={styles.row}>
-        <input placeholder='메세지를 입력하세요.' value={input} onChange={e => setInput(e.target.value)} onKeyUp={e => e.key === 'Enter'?sendMessage():''}></input>
-        <Button text={''} onclick={sendMessage} image={'img/right-arrow.png'}/>
+        <input placeholder='메세지를 입력하세요.' className={styles.input} value={input} onChange={e => setInput(e.target.value)} onKeyUp={e => e.key === 'Enter'?sendMessage():''}></input>
+        <Button onclick={sendMessage} image={'img/right-arrow.png'} width={'35px'} height={'35px'}/>
       </div>
 
     </div>

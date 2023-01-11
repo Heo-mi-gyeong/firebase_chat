@@ -27,17 +27,16 @@
     height: 70px;
   }
   
-  input {
-    width: 40%;
+  .input {
+    width: 70%;
     min-width: 250px;
-    max-width: 500px;
     padding-left: 20px;
     border-radius: 20px;
     border: 1px solid #aaaaaa;
     height : 35px;
   }
   
-  input:active, input:focus {
+  .input:active, .input:focus {
     border: 1px solid gray;
     outline-color: gray;
   }

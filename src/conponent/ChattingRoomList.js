@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { fireStore } from '../Firebase';
 import { chattingUser, userData } from '../recoil/recoil';

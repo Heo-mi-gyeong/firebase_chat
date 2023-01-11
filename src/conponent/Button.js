@@ -1,12 +1,27 @@
-import React from 'react';
-import styles from './button.module.css';
+const Button = ({ text, onclick, image, width, height, color, bgColor }) => {
+  const btn = {
+    width : width,
+    height : height,
+    lineHeight: height,
+    backgroundColor: bgColor,
+    color : color,
+    border: 'none',
+    textDecoration: 'none',
+    borderRadius: '10px',
+    textAlign : 'center',
+  }
 
-const Button = ({text,onclick,image}) => {
+  const img = {
+    width : width,
+    height : height,
+    marginLeft : '8px'
+  }
+
   return (
-    <div onClick={onclick} className={image !== '' ? styles.imgBtn : styles.btn}>{text}
+    <div onClick={onclick} style={image ? img : btn}>{text}
       {
-        image !== '' ?
-          <img src={image} className={styles.img}></img>
+        image ?
+          <img src={image} style={img}></img>
           : ''
       }
     </div>
