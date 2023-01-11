@@ -54,7 +54,7 @@ const goChat = (target) => {
                 )
             })
         }
-        <Nav/>
+        <Nav clickItem={2}/>
     </div>
   )
 }
