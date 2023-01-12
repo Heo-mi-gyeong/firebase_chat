@@ -39,3 +39,8 @@
     line-height: 70px;
     border-bottom: 1px solid #eeeeee;
   }
+
+  .title > p {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }

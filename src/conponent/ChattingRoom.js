@@ -23,6 +23,7 @@ function ChattingRoom() {
   }, [userInfo]); 
 
   useEffect(() => {
+
     fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'/messages')
       .orderBy('createDttm', 'asc')
       .onSnapshot(d => {
@@ -39,6 +40,15 @@ function ChattingRoom() {
       return;
     }
 
+    fireStore.collection("chattingRoomList").doc("#" + userInfo.id + "#" + chatUser.id).get().then(function(querySnapshot) {
+        if (!querySnapshot.exists) {
+          fireStore.collection("chattingRoomList").doc("#" + userInfo.id + "#" + chatUser).set({});
+          fireStore.collection("chattingRoomList").doc("#" + chatUser + "#" + userInfo.id).set({});
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+
     let today = new Date();
     let time = {
       year: today.getFullYear(), 
@@ -49,13 +59,15 @@ function ChattingRoom() {
       seconds: today.getSeconds(), 
     };
 
-    fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'/messages').add({
+    const room = fireStore.collection('chattingRoomList');
+
+    room.doc('#'+userInfo.id+'#'+ chatUser).collection('messages').add({
       text: input,
       user: userInfo.id,
       createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
     })
 
-    fireStore.collection('chattingRoomList/#'+chatUser+'#'+ userInfo.id +'/messages').add({
+    room.doc('#'+chatUser+'#'+ userInfo.id).collection('messages').add({
       text: input,
       user: userInfo.id,
       createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
@@ -70,7 +82,7 @@ function ChattingRoom() {
     <div className={styles.box}>
       <div className={styles.title}>
         <div className={styles.back}>
-          <img src='img/left.png' onClick={() => back(navigate)}></img>
+          <img src='img/left.png' onClick={() => navigate('/chattingRoomList')}></img>
         </div>
         <p>채팅</p>
       </div>

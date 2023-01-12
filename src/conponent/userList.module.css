@@ -39,4 +39,23 @@
     line-height: 70px;
     border-bottom: 1px solid #eeeeee;
     display: flex;
+    position: relative;
+  }
+
+  .chatBtn {
+    position: absolute;
+    margin-top : 25px;
+    right: 10px;
+  }
+
+  .title > p {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .nick {
+    width: 120px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: #727272;
   }

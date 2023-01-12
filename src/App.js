@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import './font.css';
 import LoginPage from './conponent/LoginPage';
@@ -18,6 +18,8 @@ function App() {
           <Route path="/chattingRoomList" element={ <ChattingRoomList/> }></Route>
           <Route path="/chatList" element={ <ChattingRoom/> }></Route>
           <Route path="/userList" element={ <UserList/> }></Route>
+
+          <Route path="/redirect" element={ <Navigate to='/'/> }></Route>
         </Routes>
         </BrowserRouter>
       </RecoilRoot>

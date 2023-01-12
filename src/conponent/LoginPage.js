@@ -1,11 +1,11 @@
- import React, { useRef, useState } from 'react'
+ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil';
 import { fireStore } from '../Firebase';
 import { userData } from '../recoil/recoil';
 import Button from './Button';
 import JoinModal from './JoinModal';
-import styles from './loginPage.module.css'
+import styles from './loginPage.module.css';
 
 
 const LoginPage = () => {
@@ -13,48 +13,44 @@ const LoginPage = () => {
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
 
-  const id = useRef();
-  const pw = useRef();
-
+  const [id, setId] = useState();
+  const [pw, setPw] = useState();
   const [userInfo, setUserInfo] = useRecoilState(userData);
 
   const login = () => {
-    let result = false;
-
-    if(!id.current.value) {
+    if(!id) {
       alert("아이디를 입력하세요");
       return;
-    }else if (!pw.current.value) {
+    }else if (!pw) {
       alert("비밀번호를 입력하세요");
       return;
     }
 
-    fireStore.collection('userList')
-      .onSnapshot(d => {
-        d.docs.map(doc => {
-          if(doc.data().id === id.current.value){
-            if(doc.data().pw === pw.current.value){
-              result=true;
-              return;
+    var info = fireStore.collection('userList').doc(id);
+
+    info.get().then(function(querySnapshot) {
+        if (querySnapshot.exists) {
+          if(querySnapshot.data().pw !== pw){
+            alert('아이디와 패스워드가 일치하지 않습니다.');
+            return;
+          }else{
+            const user = {
+              id : id,
+              pw : pw
             }
+        
+            setUserInfo(user);
+            localStorage.setItem('user',JSON.stringify(user));
+        
+            navigate('/chattingRoomList');
           }
-        })
-        if(!result) {
-          alert('아이디 혹은 비밀번호를 확인하세요.');
-          return;
+        } else {
+            alert('일치하는 사용자가 없습니다.');
+            return;
         }
-      })
-
-    const user = {
-      id : id.current.value,
-      pw : pw.current.value
-    }
-
-    setUserInfo(user);
-    localStorage.setItem('user',JSON.stringify(user));
-
-    navigate('/chattingRoomList');
-    
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
   }
 
   const close = () => {
@@ -63,11 +59,11 @@ const LoginPage = () => {
 
   return (
     <div className={styles.container}>
-        <h1 className={styles.header}>Log in</h1>
+        <h1 className={styles.header}>LOGIN</h1>
         <p className={styles.label}>아이디</p>
-        <input className={styles.input} type={'text'} placeholder='아이디' ref={id}/>
+        <input className={styles.input} type={'text'} placeholder='아이디' onChange={(e) => {setId(e.target.value)}}/>
         <p className={styles.label}>비밀번호</p>
-        <input className={styles.input} type={'password'} placeholder='비밀번호' ref={pw}/>
+        <input className={styles.input} type={'password'} placeholder='비밀번호' onChange={(e) => {setPw(e.target.value)}} onKeyUp={e => e.key === 'Enter'?login():''}/>
         <div className={styles.btnArea}>
           {
             modal ? <JoinModal close={close}/> : ''

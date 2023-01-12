@@ -1,4 +1,5 @@
 const Button = ({ text, onclick, image, width, height, color, bgColor }) => {
+
   const btn = {
     width : width,
     height : height,
@@ -9,6 +10,7 @@ const Button = ({ text, onclick, image, width, height, color, bgColor }) => {
     textDecoration: 'none',
     borderRadius: '10px',
     textAlign : 'center',
+    cursor : 'pointer',
   }
 
   const img = {
@@ -18,7 +20,8 @@ const Button = ({ text, onclick, image, width, height, color, bgColor }) => {
   }
 
   return (
-    <div onClick={onclick} style={image ? img : btn}>{text}
+    <div 
+      onClick={onclick} style={image ? img : btn}>{text}
       {
         image ?
           <img src={image} style={img}></img>

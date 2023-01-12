@@ -3,6 +3,9 @@ import styles from './joinModal.module.css'
 import { ReactComponent as XCircle } from "../assets/images/x-circle.svg";
 import Button from './Button';
 import { fireStore } from '../Firebase';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { back } from './functions';
 
 const JoinModal = ({close}) => {
 
@@ -17,30 +20,41 @@ const JoinModal = ({close}) => {
   const [pwCheckOk, setPwCheckOk] = useState(false);
   const [pass, setPass] = useState(false);
 
-  const dupCheck = () => {
-    let result = true;
+  const navigate = useNavigate();
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const dupCheck = () => {
     if(!id) {
       alert('아이디를 입력해주세요.');
       setIdOk(false);
       return;
     }
 
-    fireStore.collection('userList')
-      .onSnapshot(d => {
-        d.docs.map(doc => {
-          if(doc.data().id===id){
-            alert('중복된 아이디가 존재합니다.');
-            setPass(false);
-            result = false;
-            return;
-          }
-        })
-        if(result){
+    
+    var dupId = fireStore.collection("userList").doc(id);
+    dupId.get().then(function(querySnapshot) {
+        if (querySnapshot.exists) {
+          alert('중복된 아이디가 존재합니다.');
+          setPass(false);
+          return;
+        } else {
           alert ('사용가능한 아이디입니다.');
           setPass(true);
         }
-      })
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
   }
 
   useEffect(() => {
@@ -82,16 +96,22 @@ const JoinModal = ({close}) => {
       return;
     }
 
-    fireStore.collection('userList').add({
+    fireStore.collection('userList').doc(id).set({
       id: id,
       pw: pw,
       nick : nick
-    })
+    });
+
+    alert('회원가입이 완료되었습니다. 로그인 화면으로 돌아갑니다.');
+    navigate("/redirect");
   }
 
   return (
     <div className={styles.modalContainer}>
-        <div className={styles.container}>
+        <motion.div className={styles.container}
+          variants={container}
+          initial="hidden"
+          animate="visible">
             <p className={styles.title}>회원가입</p>
             <XCircle className={styles.closeBtn} onClick={close}/>
             <div className={styles.sContainer}>
@@ -109,7 +129,7 @@ const JoinModal = ({close}) => {
                 <input type={'password'} className={styles.modalInput} placeholder='비밀번호 확인' onChange={e => setPwCheck(e.target.value)}></input>
                 <Button onclick={join} text={'회원가입'} width={'45%'} height={'35px'} bgColor={'rgb(92, 218, 197)'} color={'white'} />
             </div>
-        </div>
+        </motion.div>
     </div>
   )
 }

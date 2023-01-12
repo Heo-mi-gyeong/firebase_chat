@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { fireStore } from '../Firebase'
-import { userData } from '../recoil/recoil'
+import { chattingUser, userData } from '../recoil/recoil'
 import Button from './Button'
 import { back } from './functions'
 import Nav from './Nav'
@@ -12,6 +12,8 @@ const UserList = () => {
   const navigate = useNavigate();
   const userInfo = useRecoilValue(userData);
   const [allUser, setAllUser] = useState(null);
+  const [chatUser, setChatUser] = useRecoilState(chattingUser);
+  const user = useRef();
 
   useEffect(() => {
     if(!userInfo?.id){
@@ -22,11 +24,17 @@ const UserList = () => {
   useEffect(() => {
     fireStore.collection('userList')
       .onSnapshot(d => {
-        d.docs.map(doc => {
           setAllUser(d.docs.map(doc => ({ id: doc.id, user: doc.data() })))
-        })
       })
   },[]);
+
+  const openChatRoom = (target) => {
+    /* var room = fireStore.collection("chattingRoomList").doc("#" + userInfo.id + "#" + target.id);
+    console.log(room); */
+
+    setChatUser(target.id);
+    navigate('/chatList');
+  }
 
   return (
     <div className={styles.container}>
@@ -34,14 +42,16 @@ const UserList = () => {
           <div className={styles.back}>
               <img src='img/left.png' onClick={() => back(navigate)}></img>
           </div>
+          <p>친구</p>
       </div>
       {
           allUser?.map(( item, index ) => {
               return (
-                <div key={item.id?.index} className={styles.listItem}>
-                  <p>{item.user.id}</p>
-                  {/* 클래스 네임도 prop으로 전달해줘야할 듯 */}
-                  <Button text={'채팅'} width={'70px'} height={'35px'} bgColor={'rgb(92, 218, 197)'} color={'white'}/>
+                <div key={item?.id && index} className={styles.listItem}>
+                  <p className={styles.nick}>{item.user.nick}</p>
+                  <div className={styles.chatBtn}>
+                    <Button onclick={() => openChatRoom(item)} text={'채팅'} width={'70px'} height={'35px'} bgColor={'rgb(92, 218, 197)'} color={'white'}/>
+                  </div>
                 </div>
               )
           })

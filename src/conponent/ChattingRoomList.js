@@ -31,7 +31,6 @@ useEffect(() => {
             return item.id.replaceAll('#'+userInfo?.id+'#','');
         });
         setList(roomList);
-        // setList( d.docs.map(doc => { id : doc.id.filter(id => id.indexOf(userInfo.id) != -1) }) )
       })
 },[]);
 
@@ -46,13 +45,14 @@ const goChat = (target) => {
             <div className={styles.back}>
                 <img src='img/left.png' onClick={() => back(navigate)}></img>
             </div>
+            <p>채팅방</p>
         </div>
         {
             list?.map(( item, index ) => {
                 return (
                     <div key={index} className={styles.listItem} onClick={() => goChat({item})}>{item}</div>
                 )
-            })
+            }) 
         }
         <Nav clickItem={2}/>
     </div>
