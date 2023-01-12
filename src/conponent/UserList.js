@@ -5,6 +5,7 @@ import { fireStore } from '../Firebase'
 import { chattingUser, userData } from '../recoil/recoil'
 import Button from './Button'
 import { back } from './functions'
+import Header from './Header'
 import Nav from './Nav'
 import styles from './userList.module.css'
 
@@ -13,7 +14,6 @@ const UserList = () => {
   const userInfo = useRecoilValue(userData);
   const [allUser, setAllUser] = useState(null);
   const [chatUser, setChatUser] = useRecoilState(chattingUser);
-  const user = useRef();
 
   useEffect(() => {
     if(!userInfo?.id){
@@ -38,12 +38,7 @@ const UserList = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>
-          <div className={styles.back}>
-              <img src='img/left.png' onClick={() => back(navigate)}></img>
-          </div>
-          <p>친구</p>
-      </div>
+      <Header text={'친구'}/>
       {
           allUser?.map(( item, index ) => {
               return (

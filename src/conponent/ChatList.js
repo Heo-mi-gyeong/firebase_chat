@@ -23,7 +23,7 @@ const ChatList = ({ messages,id }) => {
     {
         messages?.map((item, index)=>{
             return (
-                <div key={item?.id && index}>
+                <div key={item?.id ?? index}>
                     <Message text={item.message?.text} user={item.message?.user} createDttm={item.message?.createDttm} id={id}></Message>
                 </div>
             )

@@ -1,0 +1,28 @@
+.title {
+    position: fixed;
+    height: 35px;
+    width: 100%;
+    line-height: 35px;
+    top: 0px;
+    background-color: white;
+    padding: 10px 0px;
+    box-shadow: 0px 2px 3px -2px #aaaaaa;
+    justify-content: space-between;
+  }
+
+  .title > div > img {
+    position: absolute;
+    left : 15px;
+    top : 2px;
+    width : 30px;
+    height : 30px;
+  }
+
+  .title > div {
+    position: relative;
+  }
+
+  .title > p {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }

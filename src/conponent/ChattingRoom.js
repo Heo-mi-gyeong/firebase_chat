@@ -7,6 +7,7 @@ import Button from './Button';
 import { useRecoilValue } from 'recoil';
 import { chattingUser, userData } from '../recoil/recoil';
 import { back } from './functions';
+import Header from './Header';
 
 function ChattingRoom() {
 
@@ -80,12 +81,7 @@ function ChattingRoom() {
 
   return (
     <div className={styles.box}>
-      <div className={styles.title}>
-        <div className={styles.back}>
-          <img src='img/left.png' onClick={() => navigate('/chattingRoomList')}></img>
-        </div>
-        <p>채팅</p>
-      </div>
+      <Header text={chatUser}/>
       <div className={styles.container}>
         <ChatList messages={messages} id={userInfo?.id}/>
       </div>

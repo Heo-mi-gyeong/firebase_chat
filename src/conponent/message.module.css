@@ -67,14 +67,14 @@
 
 .sendUser {
     text-align: right;
-    margin-top: 6px;
-    margin-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 6px;
     color: gray;
 }
 
 .recivUser {
     text-align: left;
-    margin-top: 6px;
-    margin-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 6px;
     color: gray;
 }

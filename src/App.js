@@ -6,6 +6,7 @@ import ChattingRoom from './conponent/ChattingRoom';
 import { RecoilRoot } from 'recoil';
 import ChattingRoomList from './conponent/ChattingRoomList';
 import UserList from './conponent/UserList';
+import Setting from './conponent/Setting';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/chattingRoomList" element={ <ChattingRoomList/> }></Route>
           <Route path="/chatList" element={ <ChattingRoom/> }></Route>
           <Route path="/userList" element={ <UserList/> }></Route>
+          <Route path="/setting" element={ <Setting/> }></Route>
 
           <Route path="/redirect" element={ <Navigate to='/'/> }></Route>
         </Routes>

@@ -5,7 +5,6 @@ import Button from './Button';
 import { fireStore } from '../Firebase';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { back } from './functions';
 
 const JoinModal = ({close}) => {
 
@@ -28,7 +27,7 @@ const JoinModal = ({close}) => {
       opacity: 1,
       scale: 1,
       transition: {
-        delayChildren: 0.3,
+        delayChildren: 0.5,
         staggerChildren: 0.2
       }
     }

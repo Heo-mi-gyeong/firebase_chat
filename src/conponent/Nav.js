@@ -16,8 +16,8 @@ const Nav = ({clickItem}) => {
       case 1: navigate('/userList'); break;
       case 2: navigate('/chattingRoomList'); break;
       case 3: navigate('/'); break;
-      case 4: navigate('/'); break;
-      default : navigate('/'); break;
+      case 4: navigate('/setting'); break;
+      default : navigate('/redirect'); break;
     }
   }
 

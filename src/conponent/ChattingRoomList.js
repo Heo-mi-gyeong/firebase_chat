@@ -5,6 +5,7 @@ import { fireStore } from '../Firebase';
 import { chattingUser, userData } from '../recoil/recoil';
 import styles from './chattingRoomList.module.css';
 import { back } from './functions';
+import Header from './Header';
 import Nav from './Nav';
 
 const ChattingRoomList = () => {
@@ -41,12 +42,7 @@ const goChat = (target) => {
 
   return (
     <div className={styles.container}>
-        <div className={styles.title}>
-            <div className={styles.back}>
-                <img src='img/left.png' onClick={() => back(navigate)}></img>
-            </div>
-            <p>채팅방</p>
-        </div>
+        <Header text={'채팅방'}/>
         {
             list?.map(( item, index ) => {
                 return (
