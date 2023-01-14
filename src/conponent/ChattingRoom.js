@@ -57,7 +57,7 @@ function ChattingRoom() {
       day: today.getDate() > 9 ? today.getDate() : '0' + today.getDate(),
       hours: today.getHours() > 9 ? today.getHours() : '0' + today.getHours(),
       minutes: today.getMinutes() > 9 ? today.getMinutes() : '0' + today.getMinutes(),
-      seconds: today.getSeconds(), 
+      seconds: today.getSeconds() > 9 ? today.getSeconds() : '0' + today.getSeconds(), 
     };
 
     const room = fireStore.collection('chattingRoomList');
