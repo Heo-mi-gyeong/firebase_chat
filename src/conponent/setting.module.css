@@ -14,6 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .profileImg {
@@ -21,6 +22,7 @@
     min-width: 100px;
     max-width: 150px;
     border-radius: 25%;
+    margin: 30px 0px;
 }
 
 .subTitle {
@@ -43,7 +45,16 @@
     width: 25%;
     min-width: 100px;
     max-width: 200px;
-    margin: 10px 0px;
+    margin: 40px;
+}
+
+.btnContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: absolute;
+    bottom: 0px;
 }
 
 .start {
@@ -66,12 +77,12 @@
 }
 
 .switch {
-    width: 50%;
-    height: 50%;
-    max-width: 60px;
+    width: 50px;
+    height: 17px;
+    /* max-width: 60px;
     max-height: 25px;
     min-width: 50px;
-    min-height: 20px;
+    min-height: 20px; */
     background-color: rgba(132, 218, 202, 0.4);
     display: flex;
     justify-content: flex-start;
@@ -83,6 +94,7 @@
   
   .switch[data-isOn="true"] {
     justify-content: flex-end;
+    background-color: rgba(37, 185, 158, 0.4);
   }
 
   .handle {

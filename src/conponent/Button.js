@@ -11,6 +11,7 @@ const Button = ({ text, onclick, image, width, height, color, bgColor }) => {
     borderRadius: '10px',
     textAlign : 'center',
     cursor : 'pointer',
+    marginLeft: '5px',
   }
 
   const img = {
