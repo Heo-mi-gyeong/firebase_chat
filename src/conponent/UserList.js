@@ -43,7 +43,8 @@ const UserList = () => {
           allUser?.map(( item, index ) => {
               return (
                 <div key={item?.id && index} className={styles.listItem}>
-                  <p className={styles.nick}>{item.user.nick}</p>
+                  <p className={styles.nick}>{item.user.id}</p>
+                  <p className={styles.nick}>( {item.user.nick} )</p>
                   <div className={styles.chatBtn}>
                     <Button onclick={() => openChatRoom(item)} text={'채팅'} width={'70px'} height={'35px'} bgColor={'rgb(92, 218, 197)'} color={'white'}/>
                   </div>

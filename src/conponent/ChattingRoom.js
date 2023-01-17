@@ -64,17 +64,19 @@ function ChattingRoom() {
 
     room.doc('#'+userInfo.id+'#'+ chatUser).collection('messages').add({
       text: input,
-      user: userInfo.id,
+      sender: userInfo.id,
+      receiver : chatUser,
       createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
     })
 
     room.doc('#'+chatUser+'#'+ userInfo.id).collection('messages').add({
       text: input,
-      user: userInfo.id,
+      sender: userInfo.id,
+      receiver : chatUser,
       createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
     })
 
-    setMessages([...messages, { user: userInfo.id, text: input, createDttm: time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds}]);
+    setMessages([...messages, { sender: userInfo.id, receiver: chatUser, text: input, createDttm: time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds}]);
 
     setInput('');
   }

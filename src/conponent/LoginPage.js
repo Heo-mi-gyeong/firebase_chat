@@ -1,4 +1,4 @@
- import React, { useEffect, useState } from 'react'
+ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil';
 import { fireStore } from '../Firebase';
@@ -36,7 +36,8 @@ const LoginPage = () => {
           }else{
             const user = {
               id : id,
-              pw : pw
+              pw : pw,
+              nick : querySnapshot.data().nick
             }
         
             setUserInfo(user);

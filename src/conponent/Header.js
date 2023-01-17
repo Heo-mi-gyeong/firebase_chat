@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { back } from './functions'
 import styles from './header.module.css'
 
 const Header = ({text}) => {
@@ -9,7 +8,7 @@ const Header = ({text}) => {
   return (
     <div className={styles.title}>
         <div className={styles.back}>
-            <img src='img/left.png' onClick={() => back(navigate)}></img>
+            <img src='img/left.png' onClick={() => navigate(-1)}></img>
         </div>
         <p>{text}</p>
     </div>

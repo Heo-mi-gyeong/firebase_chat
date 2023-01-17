@@ -5,13 +5,13 @@ import firebase from "firebase/compat/app"
 import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCZdvgIIUnYRRgE2o8_bBqrv8bWgSOiLSE',
-  authDomain: 'chat-b29a9.firebaseapp.com',
-  projectId: 'chat-b29a9',
-  storageBucket: 'chat-b29a9.appspot.com',
-  messagingSenderId: '409739889913',
-  appId: '1:409739889913:web:3f69e7ba8216781ee6a628',
-  measurementId: 'G-VKYFSXGVQN',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 /* const app = initializeApp(firebaseConfig);
