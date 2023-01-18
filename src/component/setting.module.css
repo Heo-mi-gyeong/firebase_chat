@@ -107,3 +107,24 @@
     background-color: rgb(240, 255, 251);
     border-radius: 40px;
   }
+
+  .sender {
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .text {
+    margin-top: 7px;
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .boxContainer {
+    text-align: left;
+  }
+
+  .createDttm {
+    width: 70px;
+  }

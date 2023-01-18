@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import Message from './Message';
 import { back } from './functions';
 import { useNavigate } from 'react-router-dom';
+import styles from './chatList.module.css'
 
 const ChatList = ({ messages,id }) => {
 
@@ -23,7 +24,7 @@ const ChatList = ({ messages,id }) => {
     {
         messages?.map((item, index)=>{
             return (
-                <div key={item?.id ?? index}>
+                <div key={item?.id ?? index} className={styles.mContainer}>
                     <Message text={item.message?.text} sender={item.message?.sender} createDttm={item.message?.createDttm} id={id}></Message>
                 </div>
             )

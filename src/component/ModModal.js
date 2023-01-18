@@ -5,7 +5,6 @@ import Button from './Button';
 import { useRecoilState } from 'recoil';
 import { userData } from '../recoil/recoil';
 import { ReactComponent as PlusCircle } from "../assets/images/plus-circle.svg";
-import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { fireStore } from '../Firebase';
 
@@ -16,11 +15,6 @@ const ModModal = ({ close }) => {
   const [nickOk, setNickOk] = useState(true);
   const [userInfo, setUserInfo] = useRecoilState(userData);
   const fileInput = useRef();
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-      notify();
-  },[messages]);
 
 
   const container = {
@@ -56,9 +50,6 @@ const ModModal = ({ close }) => {
     //console.log(e.target.files[0]);
   }
 
-  const notify = () => toast(messages.message?.text);
-  //const notify = () => toast(messages.slice(-1)[0]?.message.text);
-
   const changeProfile = () => {
     if(!window.confirm("프로필을 변경하시겠습니까?")){
       return;
@@ -76,7 +67,6 @@ const ModModal = ({ close }) => {
 
     close();
     // 이미지도 저장해야함
-    // userList에서의 아이디 찾아서 
   }
 
   return (
@@ -99,15 +89,6 @@ const ModModal = ({ close }) => {
                 <div className={styles.row}>
                     <Button onclick={close} text={'취소'} width={'25%'} height={'35px'} bgColor={'rgb(224, 224, 224)'} color={'white'} />
                     <Button onclick={changeProfile} text={'확인'} width={'25%'} height={'35px'} bgColor={'#54c2b0'} color={'white'} />
-                </div>
-                <div>
-                    <ToastContainer
-                    position="top-right"
-                    closeOnClick
-                    limit={3}
-                    draggable
-                    pauseOnHover
-                    />
                 </div>
             </div>
         </motion.div>

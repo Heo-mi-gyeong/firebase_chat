@@ -11,7 +11,6 @@
     font-weight: bold;
     margin-right: 5px;
     max-width: 250px;
-    word-break: keep-all;
 }
 
 .recivMessage {
@@ -24,7 +23,6 @@
     color: white;
     margin-left: 5px;
     max-width: 250px;
-    word-break: keep-all;
 }
 
 .sendContainer {
@@ -45,6 +43,7 @@
     color: #aaaaaa;
     display: flex;
     align-items: flex-end;
+    word-break: keep-all;
 }
 
 .recivDttm {
@@ -53,6 +52,7 @@
     color: #aaaaaa;
     display: flex;
     align-items: flex-end;
+    word-break: keep-all;
 }
 
 .hide {

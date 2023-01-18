@@ -8,6 +8,8 @@ import { useRecoilValue } from 'recoil';
 import { chattingUser, userData } from '../recoil/recoil';
 import { back } from './functions';
 import Header from './Header';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 function ChattingRoom() {
 
@@ -28,7 +30,10 @@ function ChattingRoom() {
     fireStore.collection('chattingRoomList/#'+userInfo.id+'#'+ chatUser +'/messages')
       .orderBy('createDttm', 'asc')
       .onSnapshot(d => {
-        setMessages(d.docs.map(doc => ({ id: doc.id, message: doc.data() })))
+        setMessages(d.docs.map(doc => {
+          var createDttm = moment(doc.data().createDttm).format('lll');
+          return { id: doc.id, message: {id : doc.data().id, sender : doc.data().sender, receiver : doc.data().receiver, createDttm : createDttm, text : doc.data().text} }
+        }))
       })
 
   }, [])
@@ -50,33 +55,23 @@ function ChattingRoom() {
         console.log("Error getting document:", error);
     });
 
-    let today = new Date();
-    let time = {
-      year: today.getFullYear(), 
-      month: (today.getMonth()) + 1 > 9 ? (today.getMonth() + 1) : '0' + (today.getMonth() + 1),
-      day: today.getDate() > 9 ? today.getDate() : '0' + today.getDate(),
-      hours: today.getHours() > 9 ? today.getHours() : '0' + today.getHours(),
-      minutes: today.getMinutes() > 9 ? today.getMinutes() : '0' + today.getMinutes(),
-      seconds: today.getSeconds() > 9 ? today.getSeconds() : '0' + today.getSeconds(), 
-    };
-
     const room = fireStore.collection('chattingRoomList');
 
     room.doc('#'+userInfo.id+'#'+ chatUser).collection('messages').add({
       text: input,
       sender: userInfo.id,
       receiver : chatUser,
-      createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
+      createDttm : moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
     room.doc('#'+chatUser+'#'+ userInfo.id).collection('messages').add({
       text: input,
       sender: userInfo.id,
       receiver : chatUser,
-      createDttm : time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds
+      createDttm : moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
-    setMessages([...messages, { sender: userInfo.id, receiver: chatUser, text: input, createDttm: time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds}]);
+    setMessages([...messages, { sender: userInfo.id, receiver: chatUser, text: input, createDttm: moment().format('YYYY-MM-DD HH:mm:ss') }]);
 
     setInput('');
   }

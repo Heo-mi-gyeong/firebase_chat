@@ -20,8 +20,16 @@
   }
 
   .nick {
-    width: 120px;
-    border-radius: 10px;
+    width: 20%;
+    max-width: 400px;
+    min-width: 100px;
+    color: #7a7a7a;
+    text-align: left;
+  }
+
+  .id {
+    padding-left: 20px;
     font-size: 1.1rem;
-    color: #727272;
+    color: #000000;
+    text-align: left;
   }

@@ -10,7 +10,7 @@
   }
   
   .container {
-    width: 93%;
+    width: 100%;
     height: calc(100vh - 130px);
     margin-bottom: 5px;
     overflow-y: auto;
@@ -30,7 +30,7 @@
   .input {
     width: 70%;
     min-width: 250px;
-    padding-left: 20px;
+    padding: 0px 13px;
     border-radius: 20px;
     border: 1px solid #aaaaaa;
     height : 35px;

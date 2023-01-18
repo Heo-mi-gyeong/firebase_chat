@@ -10,7 +10,9 @@ import ModModal from './ModModal'
 import { back } from './functions'
 import { useNavigate } from 'react-router-dom'
 import { fireStore } from '../Firebase'
-import { toast, ToastContainer } from 'react-toastify'
+import { Slide, toast, ToastContainer } from 'react-toastify'
+import moment from 'moment';
+import 'moment/locale/ko';
 
 const Setting = () => {
   const [isOn, setIsOn] = useState(true);
@@ -21,55 +23,40 @@ const Setting = () => {
   const [messages, setMessages] = useState([]);
   const navigate = useNavigate();
 
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 0.5,
-        staggerChildren: 0.2
-      }
-    }
-  };
-
   useEffect(() => {
+    if(messages?.id){
       notify();
+    }
   },[messages]);
 
   useEffect(() => {
-
-  /*   fireStore.collection('chattingRoomList/#aaa#alrud9173/messages')
+      /*fireStore.collection('chattingRoomList/#aaa#alrud9173/messages')
       .where('createDttm','>=',time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds)
       .onSnapshot(d => {
         setMessages(d.docs.map(doc => ( { id: doc.id, message: doc.data() })))
       }) ; */
 
-       fireStore.collectionGroup('messages')
-      .onSnapshot(d => {
+       fireStore.collectionGroup('messages').onSnapshot(d => {
         d.docs.map(doc => {
-          let today = new Date();
-          let time = {
-            year: today.getFullYear(), 
-            month: (today.getMonth()) + 1 > 9 ? (today.getMonth() + 1) : '0' + (today.getMonth() + 1),
-            day: today.getDate() > 9 ? today.getDate() : '0' + today.getDate(),
-            hours: today.getHours() > 9 ? today.getHours() : '0' + today.getHours(),
-            minutes: today.getMinutes()-1 > 9 ? today.getMinutes() : '0' + today.getMinutes(),
-            seconds: today.getSeconds()-1 > 9 ? today.getSeconds() : '0' + today.getSeconds(), 
-          };
-
-          if(doc.data().receiver === userInfo.id) {
-            if(doc.data().createDttm >= time.year + "-" + time.month + "-" + time.day + " " + time.hours + ":" + time.minutes + ":" + time.seconds){
-              console.log(doc.data());
-              setMessages({ id: doc.id, message: doc.data() })
+          if(doc.data().receiver === userInfo?.id) {
+            if(moment().format("YYYY-MM-DD HH:mm:ss")==(doc.data().createDttm)){
+              var createDttm = moment(String(doc.data().createDttm).substring(0, 16)).format('LT');
+              setMessages({ id: doc.id, message: {id : doc.data().id, sender : doc.data().sender, receiver : doc.data().receiver, createDttm : createDttm, text : doc.data().text} })
             }
           }
-        } )
-  });
+        });
+      });
+  }, []);
 
-  }, [])
-
-  const notify = () => toast(messages.message?.text);
+  const notify = () => toast(
+      <div className={styles.boxContainer}>
+        <div className={styles.sender}>{messages.message?.sender}</div>
+        <div className={styles.text}>
+          <p>{messages.message?.text}</p>
+          <p className={styles.createDttm}>{messages.message?.createDttm}</p>
+        </div>
+      </div>
+    );
 
   const spring = {
     type: "spring",
@@ -125,11 +112,13 @@ const Setting = () => {
             </div>
             <div>
                 <ToastContainer
-                position="top-right"
-                closeOnClick
-                limit={3}
-                draggable
-                pauseOnHover
+                  position="top-right"
+                  closeOnClick
+                  limit={3}
+                  draggable
+                  pauseOnHover
+                  hideProgressBar
+                  transition={Slide}
                 />
             </div>
         </div>
